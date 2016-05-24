@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget id="org.apache.cordova.testsapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Tests App</name>
+  <content src="cdvtests/index.html"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <platform name="ios">
+    <preference name="Orientation" value="all"/>
+  </platform>
+  <plugin name="cordova-plugin-permissionScope" spec="../../../cordova-plugin-permissionScope"/>
+  <plugin name="cordova-plugin-permissionScope-tests" spec="../../../cordova-plugin-permissionScope/tests"/>
+  <plugin name="cordova-plugin-test-framework" spec="~1.1.1"/>
+  <plugin name="cordova-plugin-whitelist" spec="~1.2.1"/>
+</widget>

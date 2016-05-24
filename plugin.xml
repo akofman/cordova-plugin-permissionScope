@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  id="cordova-plugin-permissionScope"
+  version="0.1.0-dev">
+  <name>PermissionScope</name>
+  <license>Apache 2.0</license>
+  <description>Cordova plugin to handle iOS permissions</description>
+  <keywords>cordova,phonegap,permission,permissionScope</keywords>
+
+  <js-module name="PermissionScope" src="permissionScope.js">
+    <clobbers target="PermissionScope" />
+  </js-module>
+
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="PermissionScope">
+        <param name="ios-package" value="PermissionScopePlugin" />
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/PermissionScope/PermissionScope.h"/>
+    <header-file src="src/ios/PermissionScope-Bridging-Header.h"/>
+    <source-file src="src/ios/PermissionScope/PermissionScope.swift"/>
+    <source-file src="src/ios/PermissionScope/Constants.swift"/>
+    <source-file src="src/ios/PermissionScope/Extensions.swift"/>
+    <source-file src="src/ios/PermissionScope/Permissions.swift"/>
+    <source-file src="src/ios/PermissionScope/Structs.swift"/>
+    <source-file src="src/ios/PermissionScopePlugin.swift" />
+
+    <dependency id="cordova-plugin-add-swift-support" url="https://github.com/akofman/cordova-plugin-add-swift-support"/>
+  </platform>
+
+</plugin>

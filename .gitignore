@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+.idea
+*.iml
+tests/app/*
+!tests/app/www
+!tests/app/config.xml
+node_modules
