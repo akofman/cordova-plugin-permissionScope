@@ -2,15 +2,30 @@ import Foundation
 
 @objc(PermissionScopePlugin) class PermissionScopePlugin: CDVPlugin {
   private let LOG_TAG = "PermissionScopePlugin"
+  private var permissions: [String: () -> NSObject]?
   private var pscope: PermissionScope?
 
   override func pluginInitialize() {
     super.pluginInitialize()
     self.pscope = PermissionScope()
+    self.permissions = [
+      "addNotificationsPermission": { NotificationsPermission() },
+      "addLocationWhileInUsePermission": { LocationWhileInUsePermission() },
+      "addLocationAlwaysPermission": { LocationAlwaysPermission() },
+      "addContactsPermission": { ContactsPermission() },
+      "addEventsPermission": { EventsPermission() },
+      "addMicrophonePermission": { MicrophonePermission() },
+      "addCameraPermission": { CameraPermission() },
+      "addPhotosPermission": { PhotosPermission() },
+      "addRemindersPermission": { RemindersPermission() },
+      "addBluetoothPermission": { BluetoothPermission() },
+      "addMotionPermission": { MotionPermission() }
+    ]
   }
 
-  func addMicrophonePermission(command: CDVInvokedUrlCommand) {
-    pscope!.addPermission(MicrophonePermission(), message: command.argumentAtIndex(0) as! String)
+  func addPermission(command: CDVInvokedUrlCommand) {
+    print(command.methodName)
+    pscope!.addPermission(permissions![command.argumentAtIndex(0) as! String]!() as! Permission, message: command.argumentAtIndex(1) as! String)
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
     self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
   }
