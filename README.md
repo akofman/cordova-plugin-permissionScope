@@ -122,11 +122,15 @@ Here it the default version :
 
 ```
 PermissionScope.init({
-  disabledDefaultActionTitle: 'Settings'
+  deniedCancelActionTitle: 'Cancel',
+  denieddDefaultActionTitle: 'Settings'
 });
 
 PermissionScope.checkMicrophonePermission();
 ```
+Here is what you should obtain if the permission is has been denied :
+
+![](https://cloud.githubusercontent.com/assets/579922/15592466/672e8616-23a4-11e6-80e1-3b42a37e7ed5.jpg)
 
 ## App
 
