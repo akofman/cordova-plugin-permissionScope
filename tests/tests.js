@@ -80,15 +80,15 @@ exports.defineManualTests = function(contentEl, createActionButton) {
     PermissionScope.checkPermissions();
   });
 
-  PermissionScope.init({
-    deniedDefaultActionTitle: 'Settings',
-  });
-
   createActionButton('Request Microphone Permission', function() {
+    PermissionScope.init({
+      deniedDefaultActionTitle: 'Settings',
+    });
     PermissionScope.checkMicrophonePermission();
   });
 
   createActionButton('Request Notifications Permission', function() {
+    PermissionScope.init();
     PermissionScope.checkNotificationsPermission();
   });
 };
