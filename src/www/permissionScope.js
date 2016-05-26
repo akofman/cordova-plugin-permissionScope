@@ -1,5 +1,9 @@
 import exec from 'cordova/exec';
 
+exports.init = (config, success, error) => {
+  exec(success, error, 'PermissionScope',  'initialize', [ config ]);
+};
+
 const fns = [
   'addNotificationsPermission',
   'addLocationWhileInUsePermission',
