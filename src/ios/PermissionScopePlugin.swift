@@ -138,11 +138,7 @@ import Foundation
   }
 
   func checkPermissions(command: CDVInvokedUrlCommand) {
-    pscope!.show({ finished, results in
-      print("got results \(results) ")
-      }, cancelled: { (results) -> Void in
-      print("thing was cancelled")
-    })
+    pscope!.show()
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
     self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
   }
