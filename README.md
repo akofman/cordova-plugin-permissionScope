@@ -1,6 +1,6 @@
 [![Twitter: @alexiskofman](https://img.shields.io/badge/contact-@alexiskofman-blue.svg?style=flat)](https://twitter.com/alexiskofman)
 [![License](https://img.shields.io/badge/license-apache2-green.svg?style=flat)](https://github.com/akofman/cordova-plugin-permissionScope/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/akofman/cordova-plugin-dbmeter.svg?branch=master&style=flat)](https://travis-ci.org/akofman/cordova-plugin-permissionScope)
+[![Build Status](https://travis-ci.org/akofman/cordova-plugin-permissionScope.svg?branch=master&style=flat)](https://travis-ci.org/akofman/cordova-plugin-permissionScope)
 
 # cordova-plugin-permissionScope
 
@@ -18,6 +18,106 @@ The iOS part is written in Swift and the [Swift support plugin](https://github.c
 
 - iOS
 
+## Methods
+
+## `PermissionScope.init(config, success, error)`
+Inits and customizes the permission dialog and all the alerts.
+
+The following properties are available:
+
+Property | Comment
+----- | -------
+headerLabel | Header UILabel with the message "Hey, listen!" by default.
+bodyLabel | Header UILabel with the message "We need a couple things\r\nbefore you get started." by default.
+closeButtonTitle | Title for the close button.
+closeButtonTextColor | Hex Color for the close button's text color (ie: #cccccc).
+closeOffset | Offset used to position the Close button (ie: {-200,0}).
+permissionButtonTextColor | Hex color for the permission buttons' text color (ie: #cccccc).
+permissionButtonBorderColor | Hex Color for the permission buttons' border color (ie: #cccccc).
+permissionButtonΒorderWidth | Border width for the permission buttons.
+permissionButtonCornerRadius | Corner radius for the permission buttons.
+permissionLabelColor | Hex Color for the permission labels' text color (ie: #cccccc).
+authorizedButtonColor | Hex Color used for permission buttons with authorized status (ie: #cccccc).
+unauthorizedButtonColor | Hex Color used for permission buttons with unauthorized status. By default, inverse of `authorizedButtonColor` (ie: #cccccc).
+deniedAlertTitle | Title for the denied alert.
+deniedAlertMessage | Message for the denied alert.
+deniedCancelActionTitle | Title for the denied alert's cancel button.
+deniedDefaultActionTitle | Title for the denied alert's default button.
+disabledAlertTitle | Title for the disabled alert.
+disabledAlertMessage | Message for the disabled alert.
+disabledCancelActionTitle | Title for the disabled alert's cancel button.
+disabledDefaultActionTitle | Title for the disabled alert's default button.
+
+## `PermissionScope.checkPermissions(success, error)`
+Displays a dialog if permissions have to be approved else does nothing.
+
+## `PermissionScope.add<TYPE>Permission(message, success, error)`
+The following methods permit to set up permissions asked from the dialog :
+- `PermissionScope.addNotificationsPermission(message, success, error)`
+- `PermissionScope.addLocationInUsePermission(message, success, error)`
+- `PermissionScope.addLocationAlwaysPermission(message, success, error)`
+- `PermissionScope.addContactsPermission(message, success, error)`
+- `PermissionScope.addEventsPermission(message, success, error)`
+- `PermissionScope.addMicrophonePermission(message, success, error)`
+- `PermissionScope.addCameraPermission(message, success, error)`
+- `PermissionScope.addPhotosPermission(message, success, error)`
+- `PermissionScope.addRemindersPermission(message, success, error)`
+- `PermissionScope.addBluetoothPermission(message, success, error)`
+- `PermissionScope.addMotionPermission(message, success, error)`
+
+## `PermissionScope.check<TYPE>Permission(success, error)`
+The following methods permit to check whether a particular permission has been granted else it displays an alert :
+- `PermissionScope.checkNotificationsPermission(success, error)`
+- `PermissionScope.checkLocationInUsePermission(success, error)`
+- `PermissionScope.checkLocationAlwaysPermission(success, error)`
+- `PermissionScope.checkContactsPermission(success, error)`
+- `PermissionScope.checkEventsPermission(success, error)`
+- `PermissionScope.checkMicrophonePermission(success, error)`
+- `PermissionScope.checkCameraPermission(success, error)`
+- `PermissionScope.checkPhotosPermission(success, error)`
+- `PermissionScope.checkRemindersPermission(success, error)`
+- `PermissionScope.checkBluetoothPermission(success, error)`
+- `PermissionScope.checkMotionPermission(success, error)`
+
+## Examples
+
+```
+PermissionScope.init({
+  headerLabel: 'Hello',
+  bodyLabel: 'Before you get started',
+  closeButtonTextColor: '#cccccc',
+  closeButtonTitle: 'Return',
+  permissionButtonTextColor: '#30ab7d',
+  permissionButtonBorderColor: '#30ab7d',
+  closeOffset: '{-200, 0}',
+  authorizedButtonColor: '#cccccc',
+  unauthorizedButtonColor: '#c2262d',
+  permissionButtonCornerRadius: '20',
+  permissionLabelColor: '#ff5500',
+  permissionButtonΒorderWidth: '5',
+  deniedCancelActionTitle: 'Cancel',
+  deniedDefaultActionTitle: 'Settings',
+  deniedAlertTitle: 'Permission',
+  deniedAlertMessage: 'Please enable all the permissions',
+  disabledCancelActionTitle: 'Cancel',
+  disabledDefaultActionTitle: 'Settings',
+});
+
+PermissionScope.addBluetoothPermission('Please enable access to your Bluetooth');
+PermissionScope.addCameraPermission('Please enable access to your Camera');
+PermissionScope.addPhotosPermission('Please enable access to your Photos');
+
+PermissionScope.checkPermissions();
+```
+
+```
+PermissionScope.init({
+  disabledDefaultActionTitle: 'Settings'
+});
+
+PermissionScope.checkMicrophonePermission();
+```
+
 ## App
 
 An app is available in the app folder and is generated from the [Cordova Plugin TestFramework](https://github.com/apache/cordova-plugin-test-framework).
@@ -26,6 +126,6 @@ It permits to launch auto tests and manual tests.
 To install it, please follow these steps :
 
 ```
-cd app && cordova platform add ios
-cordova run ios --device
+npm run install
+cordova run deploy
 ```

@@ -40,7 +40,6 @@
   "scripts": {
     "build": "babel src/www -d .",
     "clean": "cd tests/app && rimraf platforms plugins",
-    "cordova": "cd tests/app && cordova",
     "lint": "eslint permissionScope.js tests",
     "test": "cordova-paramedic --platform ios --plugin ./ --verbose",
     "install": "npm run build && cd tests/app && cordova platform rm ios && cordova platform add ios",

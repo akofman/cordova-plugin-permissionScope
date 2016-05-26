@@ -24,8 +24,8 @@ types.forEach((type) => {
   exports[addPermissionMethod] = (message, success, error) => {
     exec(success, error, 'PermissionScope', 'addPermission', [ type, message ] );
   };
-  exports[checkPermissionMethod] = (message, success, error) => {
-    exec(success, error, 'PermissionScope', 'checkPermission', [ type, message ] );
+  exports[checkPermissionMethod] = (success, error) => {
+    exec(success, error, 'PermissionScope', 'checkPermission', [ type ] );
   };
 })
 
