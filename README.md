@@ -122,7 +122,6 @@ Here it the default version :
 
 ```
 PermissionScope.init({
-  deniedCancelActionTitle: 'Cancel',
   denieddDefaultActionTitle: 'Settings'
 });
 
