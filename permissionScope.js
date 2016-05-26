@@ -18,8 +18,8 @@ types.forEach(function (type) {
   exports[addPermissionMethod] = function (message, success, error) {
     (0, _exec2.default)(success, error, 'PermissionScope', 'addPermission', [type, message]);
   };
-  exports[checkPermissionMethod] = function (message, success, error) {
-    (0, _exec2.default)(success, error, 'PermissionScope', 'checkPermission', [type, message]);
+  exports[checkPermissionMethod] = function (success, error) {
+    (0, _exec2.default)(success, error, 'PermissionScope', 'checkPermission', [type]);
   };
 });
 

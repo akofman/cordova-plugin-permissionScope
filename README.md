@@ -128,5 +128,5 @@ It permits to launch auto tests and manual tests.
 To install it, please follow these steps :
 
 ```
-npm run install && npm run deploy
+npm run install && cordova run --device
 ```

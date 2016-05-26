@@ -1,10 +1,10 @@
 {
   "name": "cordova-plugin-permissionScope",
-  "version": "0.1.0-dev",
+  "version": "1.0.0",
   "description": "Cordova plugin description",
   "homepage": "https://github.com/akofman/cordova-plugin-permissionScope",
   "author": {
-    "name": ""
+    "name": "Alexis Kofman"
   },
   "license": "Apache-2.0",
   "cordova": {
@@ -34,8 +34,7 @@
     "cordova": "^6.1.1",
     "cordova-paramedic": "^0.5.0",
     "eslint": "^2.6.0",
-    "rimraf": "^2.3.4",
-    "cdvlive": "^1.0.1"
+    "rimraf": "^2.3.4"
   },
   "scripts": {
     "build": "babel src/www -d .",
@@ -43,6 +42,6 @@
     "lint": "eslint permissionScope.js tests",
     "test": "cordova-paramedic --platform ios --plugin ./ --verbose",
     "install": "npm run build && cd tests/app && cordova platform rm ios && cordova platform add ios",
-    "deploy": "cd tests/app && cdvlive ios"
+    "deploy": "cd tests/app && cordova run --device"
   }
 }
