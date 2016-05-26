@@ -112,6 +112,14 @@ PermissionScope.addPhotosPermission('Please enable access to your Photos');
 PermissionScope.checkPermissions();
 ```
 
+The result could be something like this :
+
+![](https://cloud.githubusercontent.com/assets/579922/15592265/95a4e0f0-23a2-11e6-8b58-44e9d858963a.jpeg)
+
+Here it the default version :
+
+![](https://cloud.githubusercontent.com/assets/579922/15592266/97be6640-23a2-11e6-9213-68a3321f20b8.jpeg)
+
 ```
 PermissionScope.init({
   disabledDefaultActionTitle: 'Settings'
