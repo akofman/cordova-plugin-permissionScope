@@ -98,20 +98,6 @@ import Foundation
       }
     }
 
-    self.statusMethods = [
-      "Notifications": { self.pscope!.statusNotifications() },
-      "LocationInUse": { self.pscope!.statusLocationInUse() },
-      "LocationAlways": { self.pscope!.statusLocationAlways() },
-      "Contacts": { self.pscope!.statusContacts() },
-      "Events": { self.pscope!.statusEvents() },
-      "Microphone": { self.pscope!.statusMicrophone() },
-      "Camera": { self.pscope!.statusCamera() },
-      "Photos": { self.pscope!.statusPhotos() },
-      "Reminders": { self.pscope!.statusReminders() },
-      "Bluetooth": { self.pscope!.statusBluetooth() },
-      "Motion": { self.pscope!.statusMotion() }
-    ]
-
     self.requestMethods = [
       "Notifications": { self.pscope!.requestNotifications() },
       "LocationInUse": { self.pscope!.requestLocationInUse() },
@@ -145,12 +131,9 @@ import Foundation
 
   func checkPermission(command: CDVInvokedUrlCommand) {
     let type = command.argumentAtIndex(0) as! String
-    let status = self.statusMethods![type]!()
 
-    if (status == .Unknown || status == .Unauthorized) {
-      self.pscope!.viewControllerForAlerts = self.viewController
-      self.requestMethods![type]!()
-    }
+    self.pscope!.viewControllerForAlerts = self.viewController
+    self.requestMethods![type]!()
 
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
     self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
