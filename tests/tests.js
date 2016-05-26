@@ -42,7 +42,13 @@ exports.defineManualTests = function(contentEl, createActionButton) {
       unauthorizedButtonColor: '#c2262d',
       permissionButtonCornerRadius: '20',
       permissionLabelColor: '#ff5500',
-      permissionButtonΒorderWidth: '5'
+      permissionButtonΒorderWidth: '5',
+      deniedCancelActionTitle: 'Cancel',
+      deniedDefaultActionTitle: 'Settings',
+      deniedAlertTitle: 'Permission',
+      deniedAlertMessage: 'Please enable all the permissions',
+      disabledCancelActionTitle: 'Cancel',
+      disabledDefaultActionTitle: 'Settings',
     });
 
     PermissionScope.addBluetoothPermission('Please enable access to your Bluetooth');

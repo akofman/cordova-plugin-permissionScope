@@ -43,7 +43,7 @@ import Foundation
       }
       if (self.isDefined(config["closeButtonTitle"])) {
         self.pscope!.closeButton.setTitle((config["closeButtonTitle"] as? String)!
-, forState: UIControlState.Normal)
+          , forState: UIControlState.Normal)
         self.pscope!.closeButton.sizeToFit()
       }
       if (self.isDefined(config["permissionButtonTextColor"])) {
@@ -69,6 +69,30 @@ import Foundation
       }
       if (self.isDefined(config["permissionLabelColor"])) {
         self.pscope!.permissionLabelColor = UIColor.init(hexString: (config["permissionLabelColor"] as? String)!)
+      }
+      if (self.isDefined(config["deniedAlertTitle"])) {
+        self.pscope!.deniedAlertTitle = (config["deniedAlertTitle"] as? String)!
+      }
+      if (self.isDefined(config["deniedAlertMessage"])) {
+        self.pscope!.deniedAlertMessage = (config["deniedAlertMessage"] as? String)!
+      }
+      if (self.isDefined(config["deniedCancelActionTitle"])) {
+        self.pscope!.deniedCancelActionTitle = (config["deniedCancelActionTitle"] as? String)!
+      }
+      if (self.isDefined(config["deniedDefaultActionTitle"])) {
+        self.pscope!.deniedDefaultActionTitle = (config["deniedDefaultActionTitle"] as? String)!
+      }
+      if (self.isDefined(config["disabledAlertTitle"])) {
+        self.pscope!.disabledAlertTitle = (config["deniedAlertTitle"] as? String)!
+      }
+      if (self.isDefined(config["disabledAlertMessage"])) {
+        self.pscope!.disabledAlertMessage = (config["deniedAlertMessage"] as? String)!
+      }
+      if (self.isDefined(config["disabledCancelActionTitle"])) {
+        self.pscope!.disabledCancelActionTitle = (config["disabledCancelActionTitle"] as? String)!
+      }
+      if (self.isDefined(config["disabledDefaultActionTitle"])) {
+        self.pscope!.disabledDefaultActionTitle = (config["disabledDefaultActionTitle"] as? String)!
       }
     }
 
