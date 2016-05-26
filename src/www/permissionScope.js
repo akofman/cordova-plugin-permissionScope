@@ -4,26 +4,31 @@ exports.init = (config, success, error) => {
   exec(success, error, 'PermissionScope',  'initialize', [ config ]);
 };
 
-const fns = [
-  'addNotificationsPermission',
-  'addLocationWhileInUsePermission',
-  'addLocationAlwaysPermission',
-  'addContactsPermission',
-  'addEventsPermission',
-  'addMicrophonePermission',
-  'addCameraPermission',
-  'addPhotosPermission',
-  'addRemindersPermission',
-  'addBluetoothPermission',
-  'addMotionPermission'
+const types = [
+  'Notifications',
+  'LocationInUse',
+  'LocationAlways',
+  'Contacts',
+  'Events',
+  'Microphone',
+  'Camera',
+  'Photos',
+  'Reminders',
+  'Bluetooth',
+  'Motion'
 ];
 
-fns.forEach((fn) => {
-  exports[fn] = (message, success, error) => {
-    exec(success, error, 'PermissionScope', 'addPermission', [ fn, message ] );
+types.forEach((type) => {
+  const addPermissionMethod = `add${type}Permission`;
+  const checkPermissionMethod = `check${type}Permission`;
+  exports[addPermissionMethod] = (message, success, error) => {
+    exec(success, error, 'PermissionScope', 'addPermission', [ type, message ] );
+  };
+  exports[checkPermissionMethod] = (message, success, error) => {
+    exec(success, error, 'PermissionScope', 'checkPermission', [ type, message ] );
   };
 })
 
-exports.show = (success, error) => {
-  exec(success, error, 'PermissionScope',  'show');
+exports.checkPermissions = (success, error) => {
+  exec(success, error, 'PermissionScope',  'checkPermissions');
 };

@@ -10,14 +10,19 @@ exports.init = function (config, success, error) {
   (0, _exec2.default)(success, error, 'PermissionScope', 'initialize', [config]);
 };
 
-var fns = ['addNotificationsPermission', 'addLocationWhileInUsePermission', 'addLocationAlwaysPermission', 'addContactsPermission', 'addEventsPermission', 'addMicrophonePermission', 'addCameraPermission', 'addPhotosPermission', 'addRemindersPermission', 'addBluetoothPermission', 'addMotionPermission'];
+var types = ['Notifications', 'LocationInUse', 'LocationAlways', 'Contacts', 'Events', 'Microphone', 'Camera', 'Photos', 'Reminders', 'Bluetooth', 'Motion'];
 
-fns.forEach(function (fn) {
-  exports[fn] = function (message, success, error) {
-    (0, _exec2.default)(success, error, 'PermissionScope', 'addPermission', [fn, message]);
+types.forEach(function (type) {
+  var addPermissionMethod = 'add' + type + 'Permission';
+  var checkPermissionMethod = 'check' + type + 'Permission';
+  exports[addPermissionMethod] = function (message, success, error) {
+    (0, _exec2.default)(success, error, 'PermissionScope', 'addPermission', [type, message]);
+  };
+  exports[checkPermissionMethod] = function (message, success, error) {
+    (0, _exec2.default)(success, error, 'PermissionScope', 'checkPermission', [type, message]);
   };
 });
 
-exports.show = function (success, error) {
-  (0, _exec2.default)(success, error, 'PermissionScope', 'show');
+exports.checkPermissions = function (success, error) {
+  (0, _exec2.default)(success, error, 'PermissionScope', 'checkPermissions');
 };

@@ -2,24 +2,26 @@ import Foundation
 
 @objc(PermissionScopePlugin) class PermissionScopePlugin: CDVPlugin {
   private let LOG_TAG = "PermissionScopePlugin"
-  private var permissions: [String: () -> NSObject]?
+  private var permissionMethods: [String: () -> NSObject]?
+  private var statusMethods: [String: () -> PermissionStatus]?
+  private var requestMethods: [String: () -> Void]?
   private var config: [String: () -> NSObject]?
   private var pscope: PermissionScope?
 
   override func pluginInitialize() {
     super.pluginInitialize()
-    self.permissions = [
-      "addNotificationsPermission": { NotificationsPermission() },
-      "addLocationWhileInUsePermission": { LocationWhileInUsePermission() },
-      "addLocationAlwaysPermission": { LocationAlwaysPermission() },
-      "addContactsPermission": { ContactsPermission() },
-      "addEventsPermission": { EventsPermission() },
-      "addMicrophonePermission": { MicrophonePermission() },
-      "addCameraPermission": { CameraPermission() },
-      "addPhotosPermission": { PhotosPermission() },
-      "addRemindersPermission": { RemindersPermission() },
-      "addBluetoothPermission": { BluetoothPermission() },
-      "addMotionPermission": { MotionPermission() }
+    self.permissionMethods = [
+      "Notifications": { NotificationsPermission() },
+      "LocationInUse": { LocationWhileInUsePermission() },
+      "LocationAlways": { LocationAlwaysPermission() },
+      "Contacts": { ContactsPermission() },
+      "Events": { EventsPermission() },
+      "Microphone": { MicrophonePermission() },
+      "Camera": { CameraPermission() },
+      "Photos": { PhotosPermission() },
+      "Reminders": { RemindersPermission() },
+      "Bluetooth": { BluetoothPermission() },
+      "Motion": { MotionPermission() }
     ]
   }
 
@@ -96,23 +98,64 @@ import Foundation
       }
     }
 
+    self.statusMethods = [
+      "Notifications": { self.pscope!.statusNotifications() },
+      "LocationInUse": { self.pscope!.statusLocationInUse() },
+      "LocationAlways": { self.pscope!.statusLocationAlways() },
+      "Contacts": { self.pscope!.statusContacts() },
+      "Events": { self.pscope!.statusEvents() },
+      "Microphone": { self.pscope!.statusMicrophone() },
+      "Camera": { self.pscope!.statusCamera() },
+      "Photos": { self.pscope!.statusPhotos() },
+      "Reminders": { self.pscope!.statusReminders() },
+      "Bluetooth": { self.pscope!.statusBluetooth() },
+      "Motion": { self.pscope!.statusMotion() }
+    ]
+
+    self.requestMethods = [
+      "Notifications": { self.pscope!.requestNotifications() },
+      "LocationInUse": { self.pscope!.requestLocationInUse() },
+      "LocationAlways": { self.pscope!.requestLocationAlways() },
+      "Contacts": { self.pscope!.requestContacts() },
+      "Events": { self.pscope!.requestEvents() },
+      "Microphone": { self.pscope!.requestMicrophone() },
+      "Camera": { self.pscope!.requestCamera() },
+      "Photos": { self.pscope!.requestPhotos() },
+      "Reminders": { self.pscope!.requestReminders() },
+      "Bluetooth": { self.pscope!.requestBluetooth() },
+      "Motion": { self.pscope!.requestMotion() }
+    ]
+
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
     self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
   }
 
   func addPermission(command: CDVInvokedUrlCommand) {
     let message = command.argumentAtIndex(1) != nil ? "\(command.argumentAtIndex(1))" : ""
-    pscope!.addPermission(self.permissions![command.argumentAtIndex(0) as! String]!() as! Permission, message: message)
+    pscope!.addPermission(self.permissionMethods![command.argumentAtIndex(0) as! String]!() as! Permission, message: message)
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
     self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
   }
 
-  func show(command: CDVInvokedUrlCommand) {
+  func checkPermissions(command: CDVInvokedUrlCommand) {
     pscope!.show({ finished, results in
       print("got results \(results) ")
       }, cancelled: { (results) -> Void in
       print("thing was cancelled")
     })
+    let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
+    self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
+  }
+
+  func checkPermission(command: CDVInvokedUrlCommand) {
+    let type = command.argumentAtIndex(0) as! String
+    let status = self.statusMethods![type]!()
+
+    if (status == .Unknown || status == .Unauthorized) {
+      self.pscope!.viewControllerForAlerts = self.viewController
+      self.requestMethods![type]!()
+    }
+
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
     self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
   }

@@ -2,8 +2,9 @@ exports.defineAutoTests = function() {
 
   describe('PermissionScope (window.PermissionScope)', function () {
     var fns = [
+      'init',
       'addNotificationsPermission',
-      'addLocationWhileInUsePermission',
+      'addLocationInUsePermission',
       'addLocationAlwaysPermission',
       'addContactsPermission',
       'addEventsPermission',
@@ -12,7 +13,19 @@ exports.defineAutoTests = function() {
       'addPhotosPermission',
       'addRemindersPermission',
       'addBluetoothPermission',
-      'addMotionPermission'
+      'addMotionPermission',
+      'checkNotificationsPermission',
+      'checkLocationInUsePermission',
+      'checkLocationAlwaysPermission',
+      'checkContactsPermission',
+      'checkEventsPermission',
+      'checkMicrophonePermission',
+      'checkCameraPermission',
+      'checkPhotosPermission',
+      'checkRemindersPermission',
+      'checkBluetoothPermission',
+      'checkMotionPermission',
+      'checkPermissions'
     ];
 
     it('should exist', function() {
@@ -55,7 +68,7 @@ exports.defineManualTests = function(contentEl, createActionButton) {
     PermissionScope.addCameraPermission('Please enable access to your Camera');
     PermissionScope.addPhotosPermission('Please enable access to your Photos');
 
-    PermissionScope.show();
+    PermissionScope.checkPermissions();
   });
 
   createActionButton('show default dialog', function() {
@@ -64,6 +77,18 @@ exports.defineManualTests = function(contentEl, createActionButton) {
     PermissionScope.addNotificationsPermission('In order to send you notifications');
     PermissionScope.addMicrophonePermission('In order to access your voice');
 
-    PermissionScope.show();
+    PermissionScope.checkPermissions();
+  });
+
+  PermissionScope.init({
+    deniedDefaultActionTitle: 'Settings',
+  });
+
+  createActionButton('Request Microphone Permission', function() {
+    PermissionScope.checkMicrophonePermission();
+  });
+
+  createActionButton('Request Notifications Permission', function() {
+    PermissionScope.checkNotificationsPermission();
   });
 };
