@@ -4,8 +4,8 @@
 
 # cordova-plugin-permissionScope
 
-This plugin defines a global PermissionScope object, which ...
-Although the object is in the global scope, it is not available until after the deviceready event.
+This plugin is a wrapper of the very helpful Swift framework [PermissionScope](https://github.com/akofman/permissionScope).
+It defines a global PermissionScope object, which permits to requesting permissions from users.
 
 ## Installation
 
@@ -21,7 +21,7 @@ The iOS part is written in Swift and the [Swift support plugin](https://github.c
 ## Methods
 
 ## `PermissionScope.init(config, success, error)`
-Inits and customizes the permission dialog and all the alerts.
+Inits and customizes the permissions dialog and all the alerts.
 
 The following properties are available:
 
@@ -29,27 +29,27 @@ Property | Comment
 ----- | -------
 headerLabel | Header UILabel with the message "Hey, listen!" by default.
 bodyLabel | Header UILabel with the message "We need a couple things\r\nbefore you get started." by default.
-closeButtonTitle | Title for the close button.
-closeButtonTextColor | Hex Color for the close button's text color (ie: #cccccc).
+closeButtonTitle | Title for the close button. "Close" by default.
+closeButtonTextColor | Hex color code for the close button's text color (ie: #cccccc).
 closeOffset | Offset used to position the Close button (ie: {-200,0}).
-permissionButtonTextColor | Hex color for the permission buttons' text color (ie: #cccccc).
-permissionButtonBorderColor | Hex Color for the permission buttons' border color (ie: #cccccc).
+permissionButtonTextColor | Hex color code for the permission buttons' text color (ie: #cccccc).
+permissionButtonBorderColor | Hex color code for the permission buttons' border color (ie: #cccccc).
 permissionButtonΒorderWidth | Border width for the permission buttons.
 permissionButtonCornerRadius | Corner radius for the permission buttons.
-permissionLabelColor | Hex Color for the permission labels' text color (ie: #cccccc).
-authorizedButtonColor | Hex Color used for permission buttons with authorized status (ie: #cccccc).
-unauthorizedButtonColor | Hex Color used for permission buttons with unauthorized status. By default, inverse of `authorizedButtonColor` (ie: #cccccc).
+permissionLabelColor | Hex color code for the permission labels' text color (ie: #cccccc).
+authorizedButtonColor | Hex color code used for permission buttons with authorized status (ie: #cccccc).
+unauthorizedButtonColor | Hex color code used for permission buttons with unauthorized status. By default, inverse of `authorizedButtonColor` (ie: #cccccc).
 deniedAlertTitle | Title for the denied alert.
 deniedAlertMessage | Message for the denied alert.
-deniedCancelActionTitle | Title for the denied alert's cancel button.
-deniedDefaultActionTitle | Title for the denied alert's default button.
+deniedCancelActionTitle | Title for the denied alert's cancel button. "OK" by default.
+deniedDefaultActionTitle | Title for the denied alert's default button. "Show me" by default.
 disabledAlertTitle | Title for the disabled alert.
 disabledAlertMessage | Message for the disabled alert.
-disabledCancelActionTitle | Title for the disabled alert's cancel button.
-disabledDefaultActionTitle | Title for the disabled alert's default button.
+disabledCancelActionTitle | Title for the disabled alert's cancel button. "OK" by default.
+disabledDefaultActionTitle | Title for the disabled alert's default button. "Show me" by default.
 
 ## `PermissionScope.checkPermissions(success, error)`
-Displays a dialog if permissions have to be approved else does nothing.
+Displays the dialog if permissions have to be approved else does nothing.
 
 ## `PermissionScope.add<TYPE>Permission(message, success, error)`
 The following methods permit to set up permissions asked from the dialog :
@@ -64,6 +64,8 @@ The following methods permit to set up permissions asked from the dialog :
 - `PermissionScope.addRemindersPermission(message, success, error)`
 - `PermissionScope.addBluetoothPermission(message, success, error)`
 - `PermissionScope.addMotionPermission(message, success, error)`
+
+Message is a label displayed below the permission button. Its goal is to explain why a permission has to be approved.
 
 ## `PermissionScope.check<TYPE>Permission(success, error)`
 The following methods permit to check whether a particular permission has been granted else it displays an alert :
@@ -120,12 +122,11 @@ PermissionScope.checkMicrophonePermission();
 
 ## App
 
-An app is available in the app folder and is generated from the [Cordova Plugin TestFramework](https://github.com/apache/cordova-plugin-test-framework).
+An app is available in the `tests/app` folder and is generated from the [Cordova Plugin TestFramework](https://github.com/apache/cordova-plugin-test-framework).
 It permits to launch auto tests and manual tests.
 
 To install it, please follow these steps :
 
 ```
-npm run install
-cordova run deploy
+npm run install && npm run deploy
 ```
