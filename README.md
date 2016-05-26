@@ -126,11 +126,11 @@ PermissionScope.init({
   denieddDefaultActionTitle: 'Settings'
 });
 
-PermissionScope.checkMicrophonePermission();
+PermissionScope.checkEventsPermission();
 ```
-Here is what you should obtain if the permission is has been denied :
+Here is what you should obtain if the permission has not been granted :
 
-![](https://cloud.githubusercontent.com/assets/579922/15592466/672e8616-23a4-11e6-80e1-3b42a37e7ed5.jpg)
+![](https://cloud.githubusercontent.com/assets/579922/15592735/7da12b86-23a6-11e6-8a1b-a9d995d5e4a8.jpg)
 
 ## App
 
