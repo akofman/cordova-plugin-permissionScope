@@ -14,15 +14,15 @@ var types = ['Notifications', 'LocationInUse', 'LocationAlways', 'Contacts', 'Ev
 
 types.forEach(function (type) {
   var addPermissionMethod = 'add' + type + 'Permission';
-  var checkPermissionMethod = 'check' + type + 'Permission';
+  var requestPermissionMethod = 'request' + type + 'Permission';
   exports[addPermissionMethod] = function (message, success, error) {
     (0, _exec2.default)(success, error, 'PermissionScope', 'addPermission', [type, message]);
   };
-  exports[checkPermissionMethod] = function (success, error) {
-    (0, _exec2.default)(success, error, 'PermissionScope', 'checkPermission', [type]);
+  exports[requestPermissionMethod] = function (success, error) {
+    (0, _exec2.default)(success, error, 'PermissionScope', 'requestPermission', [type]);
   };
 });
 
-exports.checkPermissions = function (success, error) {
-  (0, _exec2.default)(success, error, 'PermissionScope', 'checkPermissions');
+exports.show = function (success, error) {
+  (0, _exec2.default)(success, error, 'PermissionScope', 'show');
 };

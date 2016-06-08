@@ -20,15 +20,15 @@ const types = [
 
 types.forEach((type) => {
   const addPermissionMethod = `add${type}Permission`;
-  const checkPermissionMethod = `check${type}Permission`;
+  const requestPermissionMethod = `request${type}Permission`;
   exports[addPermissionMethod] = (message, success, error) => {
     exec(success, error, 'PermissionScope', 'addPermission', [ type, message ] );
   };
-  exports[checkPermissionMethod] = (success, error) => {
-    exec(success, error, 'PermissionScope', 'checkPermission', [ type ] );
+  exports[requestPermissionMethod] = (success, error) => {
+    exec(success, error, 'PermissionScope', 'requestPermission', [ type ] );
   };
 })
 
-exports.checkPermissions = (success, error) => {
-  exec(success, error, 'PermissionScope',  'checkPermissions');
+exports.show = (success, error) => {
+  exec(success, error, 'PermissionScope',  'show');
 };

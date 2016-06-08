@@ -3,13 +3,14 @@ import Foundation
 @objc(PermissionScopePlugin) class PermissionScopePlugin: CDVPlugin {
   private let LOG_TAG = "PermissionScopePlugin"
   private var permissionMethods: [String: () -> NSObject]?
-  private var statusMethods: [String: () -> PermissionStatus]?
   private var requestMethods: [String: () -> Void]?
-  private var config: [String: () -> NSObject]?
+  private var defaultConfig: [String: Any]?
   private var pscope: PermissionScope?
 
   override func pluginInitialize() {
     super.pluginInitialize()
+    self.pscope = PermissionScope()
+
     self.permissionMethods = [
       "Notifications": { NotificationsPermission() },
       "LocationInUse": { LocationWhileInUsePermission() },
@@ -23,6 +24,44 @@ import Foundation
       "Bluetooth": { BluetoothPermission() },
       "Motion": { MotionPermission() }
     ]
+
+    self.requestMethods = [
+      "Notifications": { self.pscope!.requestNotifications() },
+      "LocationInUse": { self.pscope!.requestLocationInUse() },
+      "LocationAlways": { self.pscope!.requestLocationAlways() },
+      "Contacts": { self.pscope!.requestContacts() },
+      "Events": { self.pscope!.requestEvents() },
+      "Microphone": { self.pscope!.requestMicrophone() },
+      "Camera": { self.pscope!.requestCamera() },
+      "Photos": { self.pscope!.requestPhotos() },
+      "Reminders": { self.pscope!.requestReminders() },
+      "Bluetooth": { self.pscope!.requestBluetooth() },
+      "Motion": { self.pscope!.requestMotion() }
+    ]
+
+    self.defaultConfig = [
+      "headerLabel": self.pscope?.headerLabel.text,
+      "bodyLabel": self.pscope?.bodyLabel.text,
+      "closeButtonTextColor": self.pscope?.closeButtonTextColor,
+      "closeButtonTitle": self.pscope?.closeButton.currentTitle,
+      "permissionButtonTextColor": self.pscope?.permissionButtonTextColor,
+      "permissionButtonBorderColor": self.pscope?.permissionButtonBorderColor,
+      "closeOffset": self.pscope?.closeOffset,
+      "authorizedButtonColor": self.pscope?.authorizedButtonColor,
+      "unauthorizedButtonColor": self.pscope?.unauthorizedButtonColor,
+      "permissionButtonΒorderWidth": self.pscope?.permissionButtonΒorderWidth,
+      "permissionButtonCornerRadius":self.pscope?.permissionButtonCornerRadius,
+      "permissionLabelColor": self.pscope?.permissionLabelColor,
+      "deniedAlertTitle": self.pscope?.deniedAlertTitle,
+      "deniedAlertMessage": self.pscope?.deniedAlertMessage,
+      "deniedCancelActionTitle": self.pscope?.deniedCancelActionTitle,
+      "deniedDefaultActionTitle": self.pscope?.deniedDefaultActionTitle,
+      "disabledAlertTitle": self.pscope?.disabledAlertTitle,
+      "disabledAlertMessage": self.pscope?.disabledAlertMessage,
+      "disabledCancelActionTitle": self.pscope?.disabledCancelActionTitle,
+      "disabledDefaultActionTitle": self.pscope?.disabledDefaultActionTitle
+    ]
+
   }
 
   private func isDefined(configItem: AnyObject!) -> Bool {
@@ -30,8 +69,30 @@ import Foundation
   }
 
   func initialize(command: CDVInvokedUrlCommand) {
-    self.pscope = PermissionScope()
     let config = command.argumentAtIndex(0)
+
+    self.pscope!.configuredPermissions = []
+
+    self.pscope!.headerLabel.text = self.defaultConfig!["headerLabel"] as? String
+    self.pscope!.bodyLabel.text = self.defaultConfig!["bodyLabel"] as? String
+    self.pscope!.closeButtonTextColor = (self.defaultConfig!["closeButtonTextColor"] as? UIColor)!
+    self.pscope!.closeButton.setTitle(self.defaultConfig!["closeButtonTitle"] as? String, forState: UIControlState.Normal)
+    self.pscope!.permissionButtonTextColor = (self.defaultConfig!["permissionButtonTextColor"] as? UIColor)!
+    self.pscope!.permissionButtonBorderColor = (self.defaultConfig!["permissionButtonBorderColor"] as? UIColor)!
+    self.pscope!.closeOffset = (self.defaultConfig!["closeOffset"] as? CGSize)!
+    self.pscope!.authorizedButtonColor = (self.defaultConfig!["authorizedButtonColor"] as? UIColor)!
+    self.pscope!.unauthorizedButtonColor = self.defaultConfig!["unauthorizedButtonColor"] as? UIColor
+    self.pscope!.permissionButtonΒorderWidth = (self.defaultConfig!["permissionButtonΒorderWidth"] as? CGFloat)!
+    self.pscope!.permissionButtonCornerRadius = (self.defaultConfig!["permissionButtonCornerRadius"] as? CGFloat)!
+    self.pscope!.permissionLabelColor = (self.defaultConfig!["permissionLabelColor"] as? UIColor)!
+    self.pscope!.deniedAlertTitle = self.defaultConfig!["deniedAlertTitle"] as? String
+    self.pscope!.deniedAlertMessage = self.defaultConfig!["deniedAlertMessage"] as? String
+    self.pscope!.deniedCancelActionTitle = self.defaultConfig!["deniedCancelActionTitle"] as? String
+    self.pscope!.deniedDefaultActionTitle = self.defaultConfig!["deniedDefaultActionTitle"] as? String
+    self.pscope!.disabledAlertTitle = self.defaultConfig!["disabledAlertTitle"] as? String
+    self.pscope!.disabledAlertMessage = self.defaultConfig!["disabledAlertMessage"] as? String
+    self.pscope!.disabledCancelActionTitle = self.defaultConfig!["disabledCancelActionTitle"] as? String
+    self.pscope!.disabledDefaultActionTitle = self.defaultConfig!["disabledDefaultActionTitle"] as? String
 
     if (config != nil) {
       if (self.isDefined(config["headerLabel"])) {
@@ -43,11 +104,13 @@ import Foundation
       if (self.isDefined(config["closeButtonTextColor"])) {
         self.pscope!.closeButtonTextColor = UIColor.init(hexString: (config["closeButtonTextColor"] as? String)!)
       }
+
       if (self.isDefined(config["closeButtonTitle"])) {
         self.pscope!.closeButton.setTitle((config["closeButtonTitle"] as? String)!
           , forState: UIControlState.Normal)
-        self.pscope!.closeButton.sizeToFit()
       }
+      self.pscope!.closeButton.sizeToFit()
+
       if (self.isDefined(config["permissionButtonTextColor"])) {
         self.pscope!.permissionButtonTextColor = UIColor.init(hexString: (config["permissionButtonTextColor"] as? String)!)
       }
@@ -98,20 +161,6 @@ import Foundation
       }
     }
 
-    self.requestMethods = [
-      "Notifications": { self.pscope!.requestNotifications() },
-      "LocationInUse": { self.pscope!.requestLocationInUse() },
-      "LocationAlways": { self.pscope!.requestLocationAlways() },
-      "Contacts": { self.pscope!.requestContacts() },
-      "Events": { self.pscope!.requestEvents() },
-      "Microphone": { self.pscope!.requestMicrophone() },
-      "Camera": { self.pscope!.requestCamera() },
-      "Photos": { self.pscope!.requestPhotos() },
-      "Reminders": { self.pscope!.requestReminders() },
-      "Bluetooth": { self.pscope!.requestBluetooth() },
-      "Motion": { self.pscope!.requestMotion() }
-    ]
-
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
     self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
   }
@@ -123,13 +172,13 @@ import Foundation
     self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
   }
 
-  func checkPermissions(command: CDVInvokedUrlCommand) {
+  func show(command: CDVInvokedUrlCommand) {
     pscope!.show()
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
     self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
   }
 
-  func checkPermission(command: CDVInvokedUrlCommand) {
+  func requestPermission(command: CDVInvokedUrlCommand) {
     let type = command.argumentAtIndex(0) as! String
 
     self.pscope!.viewControllerForAlerts = self.viewController
