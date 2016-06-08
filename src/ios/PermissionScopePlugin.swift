@@ -172,13 +172,13 @@ import Foundation
     self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
   }
 
-  func checkPermissions(command: CDVInvokedUrlCommand) {
+  func show(command: CDVInvokedUrlCommand) {
     pscope!.show()
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
     self.commandDelegate!.sendPluginResult(pluginResult, callbackId: command.callbackId)
   }
 
-  func checkPermission(command: CDVInvokedUrlCommand) {
+  func requestPermission(command: CDVInvokedUrlCommand) {
     let type = command.argumentAtIndex(0) as! String
 
     self.pscope!.viewControllerForAlerts = self.viewController
