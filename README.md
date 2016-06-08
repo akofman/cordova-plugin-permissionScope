@@ -21,7 +21,8 @@ The iOS part is written in Swift and the [Swift support plugin](https://github.c
 ## Methods
 
 ## `PermissionScope.init(config, success, error)`
-Inits and customizes the permissions dialog and all the alerts.
+Inits and customizes the dialog and all the alerts displayed from direct requests.
+If called without any parameter then the default config is restored.
 
 The following properties are available:
 
@@ -48,8 +49,8 @@ disabledAlertMessage | Message for the disabled alert.
 disabledCancelActionTitle | Title for the disabled alert's cancel button. "OK" by default.
 disabledDefaultActionTitle | Title for the disabled alert's default button. "Show me" by default.
 
-## `PermissionScope.checkPermissions(success, error)`
-Displays the dialog if permissions have to be approved else does nothing.
+## `PermissionScope.show(success, error)`
+Displays the permissions dialog if permissions have to be approved else does nothing.
 
 ## `PermissionScope.add<TYPE>Permission(message, success, error)`
 The following methods permit to set up permissions asked from the dialog :
@@ -67,19 +68,19 @@ The following methods permit to set up permissions asked from the dialog :
 
 Message is a label displayed below the permission button. Its goal is to explain why a permission has to be approved.
 
-## `PermissionScope.check<TYPE>Permission(success, error)`
+## `PermissionScope.request<TYPE>Permission(success, error)`
 The following methods permit to check whether a particular permission has been granted else it displays an alert :
-- `PermissionScope.checkNotificationsPermission(success, error)`
-- `PermissionScope.checkLocationInUsePermission(success, error)`
-- `PermissionScope.checkLocationAlwaysPermission(success, error)`
-- `PermissionScope.checkContactsPermission(success, error)`
-- `PermissionScope.checkEventsPermission(success, error)`
-- `PermissionScope.checkMicrophonePermission(success, error)`
-- `PermissionScope.checkCameraPermission(success, error)`
-- `PermissionScope.checkPhotosPermission(success, error)`
-- `PermissionScope.checkRemindersPermission(success, error)`
-- `PermissionScope.checkBluetoothPermission(success, error)`
-- `PermissionScope.checkMotionPermission(success, error)`
+- `PermissionScope.requestNotificationsPermission(success, error)`
+- `PermissionScope.requestLocationInUsePermission(success, error)`
+- `PermissionScope.requestLocationAlwaysPermission(success, error)`
+- `PermissionScope.requestContactsPermission(success, error)`
+- `PermissionScope.requestEventsPermission(success, error)`
+- `PermissionScope.requestMicrophonePermission(success, error)`
+- `PermissionScope.requestCameraPermission(success, error)`
+- `PermissionScope.requestPhotosPermission(success, error)`
+- `PermissionScope.requestRemindersPermission(success, error)`
+- `PermissionScope.requestBluetoothPermission(success, error)`
+- `PermissionScope.requestMotionPermission(success, error)`
 
 ## Examples
 
@@ -109,7 +110,7 @@ PermissionScope.addBluetoothPermission('Please enable access to your Bluetooth')
 PermissionScope.addCameraPermission('Please enable access to your Camera');
 PermissionScope.addPhotosPermission('Please enable access to your Photos');
 
-PermissionScope.checkPermissions();
+PermissionScope.show();
 ```
 
 The result could be something like this :
@@ -125,7 +126,7 @@ PermissionScope.init({
   denieddDefaultActionTitle: 'Settings'
 });
 
-PermissionScope.checkEventsPermission();
+PermissionScope.requestEventsPermission();
 ```
 Here is what you should obtain if the permission has not been granted :
 
