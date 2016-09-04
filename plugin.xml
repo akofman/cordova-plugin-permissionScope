@@ -27,7 +27,7 @@
     <source-file src="src/ios/PermissionScope/Structs.swift"/>
     <source-file src="src/ios/PermissionScopePlugin.swift" />
 
-    <dependency id="cordova-plugin-add-swift-support" version="1.3.1"/>
+    <dependency id="cordova-plugin-add-swift-support" version="1.3.2"/>
   </platform>
 
 </plugin>
