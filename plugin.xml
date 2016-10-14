@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   id="cordova-plugin-permissionScope"
-  version="2.1.0">
+  version="2.1.1">
   <name>PermissionScope</name>
   <license>Apache 2.0</license>
   <description>Cordova plugin to handle iOS permissions</description>
@@ -27,7 +27,7 @@
     <source-file src="src/ios/PermissionScope/Structs.swift"/>
     <source-file src="src/ios/PermissionScopePlugin.swift" />
 
-    <dependency id="cordova-plugin-add-swift-support" version="1.4.0"/>
+    <dependency id="cordova-plugin-add-swift-support" version="1.5.0"/>
   </platform>
 
 </plugin>
