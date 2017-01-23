@@ -1,26 +1,26 @@
 [![Twitter: @alexiskofman](https://img.shields.io/badge/contact-@alexiskofman-blue.svg?style=flat)](https://twitter.com/alexiskofman)
 [![License](https://img.shields.io/badge/license-apache2-green.svg?style=flat)](https://github.com/akofman/cordova-plugin-permissionscope/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/akofman/cordova-plugin-permissionscope.svg?branch=master&style=flat)](https://travis-ci.org/akofman/cordova-plugin-permissionscope)
+[![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://swift.org)
 
 # cordova-plugin-permissionscope
 
-This plugin is a wrapper of the very helpful Swift framework [PermissionScope](https://github.com/akofman/permissionScope).
-It defines a global PermissionScope object, which permits to requesting permissions from users.
+This plugin wraps the [PermissionScope](https://github.com/nickoneill/permissionScope) Swift framework.
+It defines a global PermissionScope object, which permits users to handle iOS permissions.
 
 ## Installation
 
 ```
 cordova plugin add cordova-plugin-permissionscope --save
 ```
-The iOS part is written in Swift and the [Swift support plugin](https://github.com/akofman/cordova-plugin-add-swift-support) is configured as a dependency.
-
-:warning: Because this plugin doesn't support Swift 3 at the moment, the following preference has to be added in your project :
-
-`<preference name="UseLegacySwiftLanguageVersion" value="true" />`
+It is written in Swift using [cordova-plugin-add-swift-support](https://github.com/akofman/cordova-plugin-add-swift-support) as a dependency.
 
 ## Supported Platforms
 
 - iOS
+
+It's important to know that Swift 3 plugins can be mixed with other Objective-C plugins but **not** with legacy Swift 2.x plugins. In other words, all your Cordova Swift plugins have to be written from the same Swift major version.
+This plugin supports Swift 3, for a Swift 2.x compatibility please use the `2.1.1` version but this one won't be maintained in the future.
 
 ## Methods
 
@@ -132,7 +132,7 @@ PermissionScope.init({
 
 PermissionScope.requestEventsPermission();
 ```
-Here is what you should obtain if the permission has not been granted :
+Here is what you obtain if the permission has not been granted :
 
 ![](https://cloud.githubusercontent.com/assets/579922/15592735/7da12b86-23a6-11e6-8a1b-a9d995d5e4a8.jpg)
 
@@ -144,5 +144,5 @@ It permits to launch auto tests and manual tests.
 To install it, please run the following command :
 
 ```
-npm run prepare && npm run app
+npm install && npm run prepare && npm run app
 ```
