@@ -1,5 +1,6 @@
-exports.defineAutoTests = function() {
+/* global it, expect, describe, PermissionScope */
 
+exports.defineAutoTests = function () {
   describe('PermissionScope (window.PermissionScope)', function () {
     var fns = [
       'init',
@@ -28,21 +29,21 @@ exports.defineAutoTests = function() {
       'show'
     ];
 
-    it('should exist', function() {
+    it('should exist', function () {
       expect(PermissionScope).toBeDefined();
     });
 
-    fns.forEach(function(fn) {
+    fns.forEach(function (fn) {
       it('should contain a ' + fn + ' function', function () {
         expect(typeof PermissionScope[fn]).toBeDefined();
         expect(typeof PermissionScope[fn] === 'function').toBe(true);
       });
-    })
+    });
   });
 };
 
-exports.defineManualTests = function(contentEl, createActionButton) {
-  createActionButton('show custom dialog', function() {
+exports.defineManualTests = function (contentEl, createActionButton) {
+  createActionButton('show custom dialog', function () {
     PermissionScope.init({
       headerLabel: 'Hello',
       bodyLabel: 'Before you get started',
@@ -61,7 +62,7 @@ exports.defineManualTests = function(contentEl, createActionButton) {
       deniedAlertTitle: 'Permission',
       deniedAlertMessage: 'Please enable all the permissions',
       disabledCancelActionTitle: 'Cancel',
-      disabledDefaultActionTitle: 'Settings',
+      disabledDefaultActionTitle: 'Settings'
     });
 
     PermissionScope.addBluetoothPermission('Please enable access to your Bluetooth');
@@ -71,7 +72,7 @@ exports.defineManualTests = function(contentEl, createActionButton) {
     PermissionScope.show();
   });
 
-  createActionButton('show default dialog', function() {
+  createActionButton('show default dialog', function () {
     PermissionScope.init();
 
     PermissionScope.addNotificationsPermission('In order to send you notifications');
@@ -80,14 +81,14 @@ exports.defineManualTests = function(contentEl, createActionButton) {
     PermissionScope.show();
   });
 
-  createActionButton('Request Microphone Permission', function() {
+  createActionButton('Request Microphone Permission', function () {
     PermissionScope.init({
-      deniedDefaultActionTitle: 'Settings',
+      deniedDefaultActionTitle: 'Settings'
     });
     PermissionScope.requestMicrophonePermission();
   });
 
-  createActionButton('Request Notifications Permission', function() {
+  createActionButton('Request Notifications Permission', function () {
     PermissionScope.init();
     PermissionScope.requestNotificationsPermission();
   });

@@ -141,8 +141,8 @@ Here is what you should obtain if the permission has not been granted :
 An app is available in the `tests/app` folder and is generated from the [Cordova Plugin TestFramework](https://github.com/apache/cordova-plugin-test-framework).
 It permits to launch auto tests and manual tests.
 
-To install it, please follow these steps :
+To install it, please run the following command :
 
 ```
-npm run install && cordova run --device
+npm run prepare && npm run app
 ```
