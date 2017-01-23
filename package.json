@@ -1,21 +1,21 @@
 {
-  "name": "cordova-plugin-permissionScope",
+  "name": "cordova-plugin-permissionscope",
   "version": "2.1.1",
   "description": "Cordova plugin description",
-  "homepage": "https://github.com/akofman/cordova-plugin-permissionScope",
+  "homepage": "https://github.com/akofman/cordova-plugin-permissionscope",
   "author": {
     "name": "Alexis Kofman"
   },
   "license": "Apache-2.0",
   "cordova": {
-    "id": "cordova-plugin-permissionScope",
+    "id": "cordova-plugin-permissionscope",
     "platforms": [
       "ios"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/akofman/cordova-plugin-permissionScope.git"
+    "url": "https://github.com/akofman/cordova-plugin-permissionscope.git"
   },
   "keywords": [
     "cordova",

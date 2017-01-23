@@ -1,8 +1,8 @@
 [![Twitter: @alexiskofman](https://img.shields.io/badge/contact-@alexiskofman-blue.svg?style=flat)](https://twitter.com/alexiskofman)
-[![License](https://img.shields.io/badge/license-apache2-green.svg?style=flat)](https://github.com/akofman/cordova-plugin-permissionScope/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/akofman/cordova-plugin-permissionScope.svg?branch=master&style=flat)](https://travis-ci.org/akofman/cordova-plugin-permissionScope)
+[![License](https://img.shields.io/badge/license-apache2-green.svg?style=flat)](https://github.com/akofman/cordova-plugin-permissionscope/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/akofman/cordova-plugin-permissionscope.svg?branch=master&style=flat)](https://travis-ci.org/akofman/cordova-plugin-permissionscope)
 
-# cordova-plugin-permissionScope
+# cordova-plugin-permissionscope
 
 This plugin is a wrapper of the very helpful Swift framework [PermissionScope](https://github.com/akofman/permissionScope).
 It defines a global PermissionScope object, which permits to requesting permissions from users.
@@ -10,7 +10,7 @@ It defines a global PermissionScope object, which permits to requesting permissi
 ## Installation
 
 ```
-cordova plugin add cordova-plugin-permissionScope --save
+cordova plugin add cordova-plugin-permissionscope --save
 ```
 The iOS part is written in Swift and the [Swift support plugin](https://github.com/akofman/cordova-plugin-add-swift-support) is configured as a dependency.
 

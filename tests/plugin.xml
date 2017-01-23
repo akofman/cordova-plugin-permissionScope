@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-  id="cordova-plugin-permissionScope-tests"
+  id="cordova-plugin-permissionscope-tests"
   version="1.0.0">
   <name>Cordova Plugin Tests</name>
   <license>Apache 2.0</license>
